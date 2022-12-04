@@ -34,7 +34,20 @@ chmod +x mac_install.sh && chmod +x play_Brotato.sh && chmod +x pathing.sh
 ./mac_install.sh 
 ```
 
+
 ## Play the Game
 ```bash
 ./play_Brotato.sh 
 ```
+
+### On Game Launch
+* Steam Cloud Save -- copied --> Archive Folder (Located @ Local Mac Save/SAVE_DATE)
+* Steam Cloud Save -- copied --> Local Mac Save
+
+
+
+### On Game Exit
+* Local Mac Save -- copied --> Windows Steam Save
+
+### After Launching Windows Steam Install
+* Windows Steam Save --> Steam Cloud Save
