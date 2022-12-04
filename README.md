@@ -1,13 +1,10 @@
-# brotato_mac_port
-Script to install, run and sync saves for Brotato. 
-
 Consists of three scripts:
 
 * mac_install.sh
 * play_Brotato.sh
 * pathing.sh
 
-One issues is that your game won't be able to sync to the Steam Cloud.
+One issues is that your game won't be able to sync to the Steam Cloud... unless:
 
 ## Workaround for Steam Cloud Save Syncing:
  
