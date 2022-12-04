@@ -9,11 +9,11 @@ Consists of three scripts:
 
 One issues is that your game won't be able to sync to the Steam Cloud.
 
-The workaround I am using is to 
+## Workaround for Steam Cloud Save Syncing:
+ 
 1. Install [CrossOver](https://www.codeweavers.com/crossover)
 2. Use it to Install Steam
-3. Use the Steam Bottle to install Brotato
-  * Your cloud saves should get downloaded
+3. Use the Steam Bottle to install Brotato (This will fetch your cloud saves)
 
 In my case, the save files are found in this directory:
 > "/Users/$USER/Library/Application Support/CrossOver/Bottles/Steam/drive_c/users/crossover/AppData/Roaming/Brotato/76561198017744487"
