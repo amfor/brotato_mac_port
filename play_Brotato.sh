@@ -29,6 +29,6 @@ cp "$SYNCED_SAVE_FOLDER/save_latest.json" "$MAC_SAVE_FOLDER/save_latest.json" &&
 # Mac Save Folder ----> Windows Cloud Sync
 # To actually upload the cloud sync, you should open your Windows Steam Install. You may have to launch the game (though it will crash, at least on CrossOver)
 sleep 5 && \
-    mv "$MAC_SAVE_FOLDER/save_latest.json" "$SYNCED_SAVE_FOLDER/save_latest.json" && \
-    mv "$MAC_SAVE_FOLDER/save_stable.json" "$SYNCED_SAVE_FOLDER/save_stable.json" && \
-    mv "$MAC_SAVE_FOLDER/save.json" "$SYNCED_SAVE_FOLDER/save.json"
+    cp "$MAC_SAVE_FOLDER/user/save_latest.json" "$SYNCED_SAVE_FOLDER/save_latest.json" && \
+    cp "$MAC_SAVE_FOLDER/user/save_stable.json" "$SYNCED_SAVE_FOLDER/save_stable.json" && \
+    cp "$MAC_SAVE_FOLDER/user/save.json" "$SYNCED_SAVE_FOLDER/save.json"
