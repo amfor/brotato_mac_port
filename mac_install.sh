@@ -1,20 +1,21 @@
 export APP_ID=1942280 # Brotato Steam App ID
 
-# This script is spun off from instruction from the community thread
-# https://steamcommunity.com/app/1942280/discussions/search/?gidforum=3266809256837679849&include_deleted=1&q=Chance+for+Mac
-# Caveat: This method does not sync your save files. You will have a fresh save on boot.
-
 source pathing.sh
+
+# Install Brotato (Windows Version) using SteamCMD
+# This is the only way to install windows games on MacOS w/o a VM or Wine+Steam.
 
 echo "Enter your Steam Username"
 read STEAM_USERNAME
 
-# Install SteamCMD
-mkdir ~/Steam && cd ~/Steam
-curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_osx.tar.gz" | tar zxvf -
-# Install Brotato (Windows Version) using SteamCMD
-# This is the only way to install windows games on MacOS w/o a VM or Wine+Steam.
-./steamcmd.sh +@sSteamCmdForcePlatformType windows +force_install_dir $MAC_GAME_FOLDER +login $STEAM_USERNAME +app_update $APP_ID validate +exit
+echo "Enter your Steam Password"
+read STEAM_PASSWORD
+
+echo "Enter your SteamGuard Code"
+read STEAM_CODE
+
+
+./steamcmd.sh +@sSteamCmdForcePlatformType windows +force_install_dir $MAC_GAME_FOLDER +login $STEAM_USERNAME $STEAM_PASSWORD $STEAM_CODE +app_update $APP_ID validate +exit
 
 mkdir godot_files && cd godot_files
 # Download Latest Release (g351 at time of writing)
