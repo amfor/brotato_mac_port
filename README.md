@@ -52,5 +52,5 @@ chmod +x mac_install.sh && chmod +x play_Brotato.sh && chmod +x pathing.sh
 
 #### M1 Support! 
 I managed to compile a working arm64 template, which is named Brotato.arm64. 
-Simply move it into the game folder and rename it to Brotato, and you will have better performance with ~20-30% performance boost.
+Simply move it into the game folder and rename it to Brotato, and you will have better performance with ~20-30% energy savings.
 
