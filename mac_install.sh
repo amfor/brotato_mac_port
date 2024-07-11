@@ -14,7 +14,7 @@ read STEAM_PASSWORD
 echo "Enter your SteamGuard Code"
 read STEAM_CODE
 
-
+CURRENT_DIR = $(pwd)
 ./steamcmd.sh +@sSteamCmdForcePlatformType windows +force_install_dir $MAC_GAME_FOLDER +login $STEAM_USERNAME $STEAM_PASSWORD $STEAM_CODE +app_update $APP_ID validate +exit
 
 mkdir godot_files && cd godot_files
@@ -26,8 +26,8 @@ unzip macos.zip
 
 # Copy godot_osx_release.64 and libsteam_api.dylib into Brotato folder
 cd ~/Steam
-cp ./osx_template.app/Contents/MacOS/godot_osx_release.64 $MAC_GAME_FOLDER/Brotato
-cp ./osx_template.app/Contents/MacOS/libsteam_api.dylib $MAC_GAME_FOLDER/libsteam_api.dylib
+cp $CURRENT_DIR/osx_template.app/Contents/MacOS/godot_osx_release.64 $MAC_GAME_FOLDER/Brotato
+cp $CURRENT_DIR/osx_template.app/Contents/MacOS/libsteam_api.dylib $MAC_GAME_FOLDER/libsteam_api.dylib
 
 # Create a save archive in case anything gets corrupted.
 mkdir $MAC_GAME_FOLDER/save_archive
