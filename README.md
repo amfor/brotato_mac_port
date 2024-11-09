@@ -26,7 +26,7 @@ git clone git@github.com:amfor/brotato_mac_port.git
 chmod +x mac_install.sh && chmod +x play_Brotato.sh && chmod +x pathing.sh
 ```
 
-## Install the Game using SteammCMD ([Homebrew](https://brew.sh/) must be installed)
+## Install the Game using SteamCMD ([Homebrew](https://brew.sh/) must be installed)
 ```bash
 ./mac_install.sh 
 ```

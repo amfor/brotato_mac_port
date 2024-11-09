@@ -1,8 +1,10 @@
 export APP_ID=1942280 # Brotato Steam App ID
-export BUILD_ID=1942281 # https://steamdb.info/depot/1942281/
-export MANIFEST_ID=2496830421398627117 # Pre-DLC compatibility 
+export DLC_APP_ID=2868390 # Brotato DLC App ID
 
 source pathing.sh
+
+brew install --cask godot@3
+brew install --cask steamcmd
 
 # Install Brotato (Windows Version) using SteamCMD
 # This is the only way to install windows games on MacOS w/o a VM or Wine+Steam.
@@ -16,26 +18,48 @@ read STEAM_PASSWORD
 echo "Enter your SteamGuard Code"
 read STEAM_CODE
 
-CURRENT_DIR = $(pwd)
-./steamcmd.sh +@sSteamCmdForcePlatformType windows +login $STEAM_USERNAME $STEAM_PASSWORD $STEAM_CODE +download_depot $APP_ID $BUILD_ID $MANIFEST_ID validate +exit
-cp -rf steamapps/content/app_1942280/depot_1942281 $MAC_GAME_FOLDER/
+CURRENT_DIR=$(pwd)
 
-mkdir godot_files && cd godot_files
-# Download Latest Release (g353 at time of writing)
-# See https://github.com/Gramps/GodotSteam/releases for latest release
-curl -L -O https://github.com/GodotSteam/GodotSteam/releases/download/v3.27/godotsteam-g36-s160-gs327-templates.zip
-unzip godotsteam-g36-s160-gs327-templates.zip
-unzip macos.zip
+mkdir -p pcks
 
-# Copy godot_osx_release.64 and libsteam_api.dylib into Brotato folder
-cd ~/Steam
-cp $CURRENT_DIR/osx_template.app/Contents/MacOS/godot_osx_release.64 $MAC_GAME_FOLDER/Brotato
-cp $CURRENT_DIR/osx_template.app/Contents/MacOS/libsteam_api.dylib $MAC_GAME_FOLDER/libsteam_api.dylib
+steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir $CURRENT_DIR/pcks +login $STEAM_USERNAME $STEAM_PASSWORD $STEAM_CODE +app_update $APP_ID validate +exit
+
+# Download Godot Reverse Engineering Tools
+mkdir -p godot_re_files && cd godot_re_files
+curl -L -O https://github.com/bruvzg/gdsdecomp/releases/download/v0.8.0-prerelease.5/GDRE_tools-v0.8.0-prerelease.5-macos.zip
+unzip GDRE_tools-v0.8.0-prerelease.5-macos.zip
+
+# Reverse Engineer the game and DLC
+mkdir -p brotato_recovered brotato_dlc_recovered
+./"Godot RE Tools.app/Contents/MacOS/Godot RE Tools" --headless --recover=$CURRENT_DIR/pcks/Brotato.pck --output-dir=brotato_recovered
+./"Godot RE Tools.app/Contents/MacOS/Godot RE Tools" --headless --recover=$CURRENT_DIR/pcks/BrotatoAbyssalTerrors.pck --output-dir=brotato_dlc_recovered
+cp -rf brotato_dlc_recovered/dlcs brotato_recovered
+
+# Remove references to the Steam from the game files
+mv brotato_recovered/singletons/platforms/steam.gd
+sed -i -e '7,11d' brotato_recovered/singletons/platforms/platform.gd
+sed -i -e 's/\t_platform_impl = LocalPlatform.new()/_platform_impl = LocalPlatform.new()/' brotato_recovered/singletons/platforms/platform.gd
+sed -i -e "s/Steam.activateGameOverlayToStore($DLC_APP_ID)/pass/g" brotato_recovered/ui/menus/pages/main_menu.gd 
+
+cp $CURRENT_DIR/export_presets.cfg brotato_recovered/
+cd brotato_recovered/
+
+# Install export templates
+mkdir -p $GODOT_TEMPLATE_FOLDER
+if [ ! -f "$GODOT_TEMPLATE_FOLDER/osx.zip" ]; then 
+    curl -L https://github.com/godotengine/godot/releases/download/3.6-stable/Godot_v3.6-stable_export_templates.tpz;
+    unzip Godot_v3.6-stable_export_templates.tpz;
+    cp templates/osx.zip $GODOT_TEMPLATE_FOLDER/osx.zip
+fi
+
+# Rebuild Brotato
+godot --export "Mac OSX" $CURRENT_DIR/Brotato.dmg
+
+hdiutil mount $CURRENT_DIR/Brotato.dmg
+cp -R /Volumes/Brotato/ $MAC_GAME_FOLDER
+hdiutil unmount /Volumes/Brotato
 
 # Create a save archive in case anything gets corrupted.
-mkdir $MAC_GAME_FOLDER/save_archive
+mkdir -p $MAC_GAME_FOLDER/Brotato.app/save_archive
 
-# Run the game once to generate the save folder/files
-# Close the game after 10s
-
-timeout -s SIGKILL 10 $MAC_GAME_FOLDER/Brotato
+cd $CURRENT_DIR
