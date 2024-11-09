@@ -38,16 +38,8 @@ chmod +x mac_install.sh && chmod +x play_Brotato.sh && chmod +x pathing.sh
 * Steam Cloud Save -- copied --> Archive Folder (Located @ Local Mac Save/SAVE_DATE)
 * Steam Cloud Save -- copied --> Local Mac Save
 
-
-
 ### On Game Exit
 * Local Mac Save -- copied --> Windows Steam Save
 
 ### After Launching Windows Steam Install
 * Windows Steam Save --> Steam Cloud Save
-
-
-#### M1 Support! 
-I managed to compile a working arm64 template, which is named Brotato.arm64. 
-Simply move it into the game folder and rename it to Brotato, and you will have better performance with ~20-30% energy savings.
-
