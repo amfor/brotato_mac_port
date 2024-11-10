@@ -1,5 +1,5 @@
 # Where mac_install.sh set up the game
-MAC_GAME_FOLDER="/Users/$USER/Applications/"
+MAC_GAME_FOLDER="/Users/$USER/Applications"
 # Where our save files exist on Mac
 MAC_SAVE_FOLDER="/Users/$USER/Library/Application Support/Brotato/user"
 # Where Godot data is stored

@@ -7,8 +7,8 @@
 source pathing.sh
 
 DT_STRING=$(date +"%Y%m%d") 
-export ARCHIVE_SAVE_FOLDER=$MAC_SAVE_FOLDER/$DT_STRING 
-mkdir "$ARCHIVE_SAVE_FOLDER"
+ARCHIVE_SAVE_FOLDER=$MAC_SAVE_FOLDER/$DT_STRING 
+mkdir -p "$ARCHIVE_SAVE_FOLDER"
 
 # Backup Steam Cloud Sync
 cp "$SYNCED_SAVE_FOLDER/save_v2.json" "$ARCHIVE_SAVE_FOLDER/save_v2.json"
@@ -17,10 +17,10 @@ cp "$SYNCED_SAVE_FOLDER/save_v2.json" "$ARCHIVE_SAVE_FOLDER/save_v2.json"
 cp "$SYNCED_SAVE_FOLDER/save_v2.json" "$MAC_SAVE_FOLDER/save_v2.json"
 
 # Launch the game 
-"$MAC_GAME_FOLDER/Contents/MacOS/Brotato"
+$MAC_GAME_FOLDER/Brotato.app/Contents/MacOS/Brotato
 
 # When the game gets closed
 # Mac Save Folder ----> Windows Cloud Sync
 # To actually upload the cloud sync, you should open your Windows Steam Install. You may have to launch the game (though it will crash, at least on CrossOver)
 sleep 5 && \
-    cp "$MAC_SAVE_FOLDER/user/save_v2.json" "$SYNCED_SAVE_FOLDER/save_v2.json"
+    cp "$MAC_SAVE_FOLDER/save_v2.json" "$SYNCED_SAVE_FOLDER/save_v2.json"

@@ -41,25 +41,21 @@ sed -i -e '7,11d' brotato_recovered/singletons/platforms/platform.gd
 sed -i -e 's/\t_platform_impl = LocalPlatform.new()/_platform_impl = LocalPlatform.new()/' brotato_recovered/singletons/platforms/platform.gd
 sed -i -e "s/Steam.activateGameOverlayToStore($DLC_APP_ID)/pass/g" brotato_recovered/ui/menus/pages/main_menu.gd 
 
-cp $CURRENT_DIR/export_presets.cfg brotato_recovered/
-cd brotato_recovered/
-
 # Install export templates
 mkdir -p $GODOT_TEMPLATE_FOLDER
 if [ ! -f "$GODOT_TEMPLATE_FOLDER/osx.zip" ]; then 
-    curl -L https://github.com/godotengine/godot/releases/download/3.6-stable/Godot_v3.6-stable_export_templates.tpz;
-    unzip Godot_v3.6-stable_export_templates.tpz;
-    cp templates/osx.zip $GODOT_TEMPLATE_FOLDER/osx.zip
+    curl -L https://github.com/godotengine/godot/releases/download/3.6-stable/Godot_v3.6-stable_export_templates.tpz | jar xv && \
+        cp templates/osx.zip $GODOT_TEMPLATE_FOLDER/osx.zip;
 fi
 
+cp $CURRENT_DIR/export_presets.cfg brotato_recovered/
+cd brotato_recovered/
+
 # Rebuild Brotato
-godot --export "Mac OSX" $CURRENT_DIR/Brotato.dmg
+godot --headless --export "Mac OSX" $CURRENT_DIR/Brotato.dmg
 
 hdiutil mount $CURRENT_DIR/Brotato.dmg
 cp -R /Volumes/Brotato/ $MAC_GAME_FOLDER
 hdiutil unmount /Volumes/Brotato
-
-# Create a save archive in case anything gets corrupted.
-mkdir -p $MAC_GAME_FOLDER/Brotato.app/save_archive
 
 cd $CURRENT_DIR
