@@ -54,6 +54,7 @@ cd brotato_recovered/
 # Rebuild Brotato
 godot --headless --export "Mac OSX" $CURRENT_DIR/Brotato.dmg
 
+# Install Brotato
 hdiutil mount $CURRENT_DIR/Brotato.dmg
 cp -R /Volumes/Brotato/ $MAC_GAME_FOLDER
 hdiutil unmount /Volumes/Brotato
