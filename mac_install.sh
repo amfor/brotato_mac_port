@@ -27,7 +27,7 @@ steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir $CURRENT_DIR/pc
 # Download Godot Reverse Engineering Tools
 mkdir -p godot_re_files && cd godot_re_files
 curl -L -O https://github.com/bruvzg/gdsdecomp/releases/download/v0.8.0-prerelease.5/GDRE_tools-v0.8.0-prerelease.5-macos.zip
-unzip GDRE_tools-v0.8.0-prerelease.5-macos.zip
+unzip -o GDRE_tools-v0.8.0-prerelease.5-macos.zip
 
 # Reverse Engineer the game and DLC
 mkdir -p brotato_recovered brotato_dlc_recovered
