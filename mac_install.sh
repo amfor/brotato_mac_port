@@ -26,14 +26,16 @@ steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir $CURRENT_DIR/pc
 
 # Download Godot Reverse Engineering Tools
 mkdir -p godot_re_files && cd godot_re_files
-curl -L -O https://github.com/bruvzg/gdsdecomp/releases/download/v0.8.0-prerelease.5/GDRE_tools-v0.8.0-prerelease.5-macos.zip
-unzip -o GDRE_tools-v0.8.0-prerelease.5-macos.zip
+if [ ! -f "Godot RE Tools.app" ]; then
+    curl -L -O https://github.com/bruvzg/gdsdecomp/releases/download/v0.8.0-prerelease.5/GDRE_tools-v0.8.0-prerelease.5-macos.zip;
+    unzip -o GDRE_tools-v0.8.0-prerelease.5-macos.zip;
+fi
 
 # Reverse Engineer the game and DLC
 mkdir -p brotato_recovered brotato_dlc_recovered
 ./"Godot RE Tools.app/Contents/MacOS/Godot RE Tools" --headless --recover=$CURRENT_DIR/pcks/Brotato.pck --output-dir=brotato_recovered
 ./"Godot RE Tools.app/Contents/MacOS/Godot RE Tools" --headless --recover=$CURRENT_DIR/pcks/BrotatoAbyssalTerrors.pck --output-dir=brotato_dlc_recovered
-cp -rf brotato_dlc_recovered/dlcs brotato_recovered
+cp -rf brotato_dlc_recovered/ brotato_recovered
 
 # Remove references to the Steam from the game files
 mv brotato_recovered/singletons/platforms/steam.gd
