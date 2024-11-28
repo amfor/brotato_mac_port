@@ -19,7 +19,7 @@ If you use a different method, you'll need to modify the `SYNCED_SAVE_FOLDER` wi
 
 ## Clone the repo & make the scripts executable
 ```bash
-git clone git@github.com:JakubHanko/brotato_mac_port.git
+git clone git@github.com:amfor/brotato_mac_port.git
 chmod +x mac_install.sh && chmod +x play_Brotato.sh && chmod +x pathing.sh
 ```
 
